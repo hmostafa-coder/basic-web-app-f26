@@ -40,4 +40,12 @@ describe("QueryProcessor", () => {
     ])('should add numbers in "%s"', (query, expected) => {
         expect(QueryProcessor(query)).toBe(expected);
     });
+
+    test.each([
+        ["Which of the following numbers is the largest: 4, 78, 14?", "78"],
+        ["Which is largest: -4, -14, -2?", "-2"],
+        ["Which is largest: 1.5, 2.75, 2?", "2.75"],
+    ])('should find the largest number in "%s"', (query, expected) => {
+        expect(QueryProcessor(query)).toBe(expected);
+    });
 });

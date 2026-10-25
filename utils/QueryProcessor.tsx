@@ -11,6 +11,14 @@ export default function QueryProcessor(query: string): string {
     return "Hana";
   }
 
+  const largest = query.match(/largest\s*:\s*([^?]+)/i);
+  if (largest) {
+    const values = largest[1].split(",").map((value) => value.trim());
+    if (values.length > 0 && values.every((value) => /^-?\d+(?:\.\d+)?$/.test(value))) {
+      return String(Math.max(...values.map(Number)));
+    }
+  }
+
   const addition = query.match(/(-?\d+(?:\.\d+)?)\s+plus\s+(-?\d+(?:\.\d+)?)/i);
   if (addition) {
     return String(Number(addition[1]) + Number(addition[2]));
