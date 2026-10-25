@@ -11,8 +11,9 @@ export default function QueryProcessor(query: string): string {
     return "Hana";
   }
 
-  if (query.toLowerCase().includes("What is 94 plus 42?")) {
-    return "136";
+  const addition = query.match(/(-?\d+(?:\.\d+)?)\s+plus\s+(-?\d+(?:\.\d+)?)/i);
+  if (addition) {
+    return String(Number(addition[1]) + Number(addition[2]));
   }
 
   if (query.toLowerCase().includes("andrew id")) {

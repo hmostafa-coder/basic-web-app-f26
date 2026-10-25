@@ -30,4 +30,14 @@ describe("QueryProcessor", () => {
         const response: string = QueryProcessor(query);
         expect(response).toBe("hmostafa");
     });
+
+    test.each([
+        ["What is 51 plus 14?", "65"],
+        ["What is 42 plus 17?", "59"],
+        ["What is 38 plus 74?", "112"],
+        ["What is 94 plus 42?", "136"],
+        ["Calculate 1.5 plus 2.25", "3.75"],
+    ])('should add numbers in "%s"', (query, expected) => {
+        expect(QueryProcessor(query)).toBe(expected);
+    });
 });
