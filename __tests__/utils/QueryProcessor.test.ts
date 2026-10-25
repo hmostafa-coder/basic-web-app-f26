@@ -61,4 +61,16 @@ describe("QueryProcessor", () => {
     test('should calculate a Scrabble word score', () => {
         expect(QueryProcessor("What is the scrabble score of zoo?")).toBe("12");
     });
+
+    test('should find an anagram from the choices', () => {
+        expect(QueryProcessor(
+            "Which of the following is an anagram of listen: banana, inlets, google, enlists?"
+        )).toBe("inlets");
+    });
+
+    test('should match different words and arbitrary choice lists', () => {
+        expect(QueryProcessor(
+            "Find an anagram of earth: stone, heart, below, hater."
+        )).toBe("heart");
+    });
 });

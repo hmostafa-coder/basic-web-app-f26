@@ -214,6 +214,10 @@ function scrabbleScore(word: string): number {
   }, 0);
 }
 
+function normalizeAnagramWord(word: string): string {
+  return word.toLowerCase().split("").sort().join("");
+}
+
 export default function QueryProcessor(query: string): string {
   if (query.toLowerCase().includes("shakespeare")) {
     return (
@@ -246,6 +250,13 @@ export default function QueryProcessor(query: string): string {
   const scrabble = query.match(/scrabble\s+score\s+of\s+([a-z]+)/i);
   if (scrabble) {
     return String(scrabbleScore(scrabble[1]));
+  }
+
+  const anagram = query.match(/anagram of\s+([a-z]+)\s*:\s*([^?]+)/i);
+  if (anagram) {
+    const target = normalizeAnagramWord(anagram[1]);
+    const choices = anagram[2].split(",").map((choice) => choice.trim());
+    return choices.find((choice) => normalizeAnagramWord(choice) === target) || "";
   }
 
   const arithmetic = query.match(/\d+(?:\.\d+)?(?:\s*(?:to the power of|power of|multiplied by|divided by|plus|minus|times|over|add|subtract|multiply|divide|[+*/^×÷-])\s*\d+(?:\.\d+)?)+/i);
