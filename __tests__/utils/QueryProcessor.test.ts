@@ -37,8 +37,17 @@ describe("QueryProcessor", () => {
         ["What is 38 plus 74?", "112"],
         ["What is 94 plus 42?", "136"],
         ["Calculate 1.5 plus 2.25", "3.75"],
+        ["What is 75 plus 71 plus 35?", "181"],
+        ["What is 25 minus 12?", "13"],
+        ["What is 20 plus 5 minus 8?", "17"],
     ])('should add numbers in "%s"', (query, expected) => {
         expect(QueryProcessor(query)).toBe(expected);
+    });
+
+    test('should calculate large integer powers exactly', () => {
+        expect(QueryProcessor("What is 14 to the power of 97?")).toBe(
+            "1494236912846185452088061826700837191902371265444315864511557082971899640911175229815885685929368287894101295104"
+        );
     });
 
     test.each([
