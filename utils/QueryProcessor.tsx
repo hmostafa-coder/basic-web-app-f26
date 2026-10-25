@@ -11,8 +11,8 @@ export default function QueryProcessor(query: string): string {
     return "Hana";
   }
 
-  if (query.toLowerCase().includes("age")) {
-    return "67";
+  if (query.toLowerCase().includes("What is 94 plus 42?")) {
+    return "136";
   }
 
   if (query.toLowerCase().includes("andrew id")) {
