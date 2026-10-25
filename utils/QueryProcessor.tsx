@@ -197,6 +197,23 @@ function isPrime(value: number): boolean {
   return true;
 }
 
+function scrabbleScore(word: string): number {
+  const letterValues: { [letters: string]: number } = {
+    AEILNORSTU: 1,
+    DG: 2,
+    BCMP: 3,
+    FHVWY: 4,
+    K: 5,
+    JX: 8,
+    QZ: 10,
+  };
+
+  return word.toUpperCase().split("").reduce((score, letter) => {
+    const group = Object.keys(letterValues).find((letters) => letters.includes(letter));
+    return score + (group ? letterValues[group] : 0);
+  }, 0);
+}
+
 export default function QueryProcessor(query: string): string {
   if (query.toLowerCase().includes("shakespeare")) {
     return (
@@ -224,6 +241,11 @@ export default function QueryProcessor(query: string): string {
     if (values.length > 0 && values.every((value) => /^\d+$/.test(value))) {
       return values.filter((value) => isPrime(Number(value))).join(", ");
     }
+  }
+
+  const scrabble = query.match(/scrabble\s+score\s+of\s+([a-z]+)/i);
+  if (scrabble) {
+    return String(scrabbleScore(scrabble[1]));
   }
 
   const arithmetic = query.match(/\d+(?:\.\d+)?(?:\s*(?:to the power of|power of|multiplied by|divided by|plus|minus|times|over|add|subtract|multiply|divide|[+*/^×÷-])\s*\d+(?:\.\d+)?)+/i);

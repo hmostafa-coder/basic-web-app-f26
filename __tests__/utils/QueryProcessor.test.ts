@@ -57,4 +57,8 @@ describe("QueryProcessor", () => {
     ])('should find the largest number in "%s"', (query, expected) => {
         expect(QueryProcessor(query)).toBe(expected);
     });
+
+    test('should calculate a Scrabble word score', () => {
+        expect(QueryProcessor("What is the scrabble score of zoo?")).toBe("12");
+    });
 });
